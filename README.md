@@ -1,90 +1,68 @@
-# Car Inventory Management System
+# CarLot
 
-A comprehensive Java application for managing automobile inventory, sales, and profit tracking.
+CarLot is a desktop app for a used-car lot. You can add cars, mark them sold, search and sort the inventory, and see profit and mileage insights.
 
-## Features
+## Open the app (easiest)
 
-- **User-friendly GUI**: Modern interface built with Java Swing and custom theming
-- **Inventory Management**: Add, view, and sell cars in your inventory
-- **Comprehensive Data Tracking**: Record and track vehicle specs, costs, sales prices, and profits
-- **Advanced Filtering**: Sort and search functionality to quickly find vehicles
-- **Statistics**: View average MPG, total profits, and other key metrics
-- **Data Persistence**: Save and load inventory data using CSV files
+This is a Mac app. It is not a Windows `.exe`.
 
-## System Requirements
+1. Download [release/CarLot-macOS.zip](release/CarLot-macOS.zip) from this repository.
+2. Unzip it.
+3. Open **CarLot.app**.
 
-- Java 8 or higher
-- Any operating system that supports Java
+Use that zip. The `release/CarLot.app` folder in the repository is missing one large runtime file, so it will not open on its own. The zip has the complete app.
 
-## Getting Started
+The first time macOS blocks it, right-click the app, choose **Open**, then **Open** again.
 
-### Running the Application
+You do not need to install Java to use the zip.
 
-You can run the application in two modes:
+## What you can do
 
-1. **GUI Mode** (Default):
-   ```
-   java -cp bin CarInventoryLauncher
-   ```
+- See every car in one table.
+- Search by ID.
+- Filter by **Available** or **Sold**.
+- Sort by entry order, MPG, mileage, or asking price.
+- **Add car** to put a vehicle in inventory.
+- Select a car and **Sell car** to record the real sale price.
+- Read the insights panel: average MPG, best MPG, highest mileage, and total profit.
+- **Save** the inventory so it is still there the next time you open the app.
 
-2. **Console Mode**:
-   ```
-   java -cp bin CarInventoryLauncher --console
-   ```
+A car ID cannot contain spaces, and two cars cannot share the same ID. Profit is the sale price minus what the lot paid for the car.
 
-### Building from Source
+## Where your inventory is saved
 
-1. Clone the repository
-2. Compile the Java files:
-   ```
-   javac -d bin src/*.java
-   ```
-3. Run the application:
-   ```
-   java -cp bin CarInventoryLauncher
-   ```
+The app saves cars here:
 
-## Usage Guide
+`~/Library/Application Support/CarLot/carlot.txt`
 
-### Adding a Car
+That folder is created the first time you save. Use **File → Save** (or the **Save** button) before you quit if you want to keep new changes.
 
-1. Click the "Add Car" button or use the "File" menu
-2. Enter the vehicle details:
-   - ID (make, model, year)
-   - Mileage
-   - MPG (Miles Per Gallon)
-   - Cost
-   - Sales Price
-3. Click "Save" to add the car to inventory
+This repository also includes a sample list of 300 cars in `carlot.txt` at the project root. The app does not load that file automatically. To try those cars, copy it over the file above, then open the app again.
 
-### Selling a Car
+## Run or rebuild it yourself
 
-1. Select a car from the inventory table
-2. Click the "Sell Car" button
-3. Enter the actual selling price
-4. Click "Sell" to record the sale
+You need a JDK (Java 17 or newer) for these steps. Packaging the Mac app also needs the `jpackage` tool that comes with the JDK.
 
-### Managing Inventory
+Run the already built jar:
 
-- Use the search box to filter cars by ID
-- Sort by MPG using the "View" menu
-- View statistics at the bottom of the window
-- Save inventory to disk using the "File" menu or Save button
+```bash
+java -jar dist/CarLot.jar
+```
 
-## Project Structure
+Build the jar and the Mac app again:
 
-- `Car.java`: Class representing individual cars with attributes and methods
-- `CarLot.java`: Collection class for managing the car inventory
-- `CarInventoryApp.java`: Main GUI application
-- `CarInventoryTheme.java`: Custom theme for the application
-- `AboutDialog.java`: About dialog with application information
-- `CarInventoryLauncher.java`: Entry point with support for GUI and console modes
+```bash
+./scripts/build.sh
+```
 
-## License
+That script writes the new app to `release/CarLot.app`.
 
-This project is available for educational purposes.
+## Project files
 
-## Acknowledgments
-
-- Developed as a Java programming project
-- Uses Java Swing for the graphical user interface 
+| Path | What it is |
+| --- | --- |
+| `src/` | Java source (`Car`, `CarLot`, and the window) |
+| `release/CarLot-macOS.zip` | The app you should download and open |
+| `carlot.txt` | Sample inventory of 300 cars |
+| `docs/` | Product notes and the original JavaDoc |
+| `scripts/build.sh` | Compiles the source and packages the Mac app |
